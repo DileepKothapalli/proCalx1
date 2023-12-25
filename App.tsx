@@ -1,15 +1,24 @@
 /** @format */
 
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Switch, Text, View } from "react-native";
 import { ThemeContext } from "./src/context/ThemeContext";
+import { useState } from "react";
+import Button from "./src/components/Button";
 
 export default function App() {
+  const [theme,setTheme] = useState('light')
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start workinmmm g on yournn app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ThemeContext.Provider value={theme}>
+      <View style={ theme==='light'? styles.container : [styles.container,{backgroundColor:"#111"}]}>
+        <StatusBar style="auto" />
+        <Switch
+        value={theme==='light'}
+        onValueChange={() => setTheme(theme === "light" ? "dark" : "light")}
+        />
+        {/* <Button isGray title="3" onPress={()=> {alert('hello')}}  /> */}
+      </View>
+    </ThemeContext.Provider>
   );
 }
 
